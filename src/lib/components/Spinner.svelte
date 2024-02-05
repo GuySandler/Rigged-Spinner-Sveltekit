@@ -4,12 +4,15 @@
   import {flip} from 'svelte/animate';
   const [send, receive] = crossfade({fallback: scale});
   import {icons} from '$lib/icons';
-  import { options, userDefaultOptions } from '$lib/options/stores';
+  import { options, userDefaultOptions, FormToggle } from '$lib/options/stores';
 
   const iconsArray = Object.keys(icons);
 
   let uid = $options.length+1;
 
+    function Back() {
+        FormToggle.set(true);
+    }
   // spinner and button
   let firstSpin = true;
   let rotate = false;
@@ -20,6 +23,10 @@
 
   // new addition
   let winairpods = 1; // number of airpods that can be won
+  function ResetWinAirpods() {
+    winairpods = 1;
+  }
+
   let selectedIcon = iconsArray[getRandomInt(0,iconsArray.length-1)]
   let name = ""
   $: addDisabled = (name === "");
@@ -158,6 +165,7 @@
   <!--Result-->
   <section class="grid m-4">
     <h1>{winairpods}</h1>
+    <button on:click={ResetWinAirpods}>Reset WinAirpods</button>
     {#if final}
     <!--Result-->
       <div class="flex justify-center" in:slide={{delay: 400}} out:slide>
@@ -171,6 +179,7 @@
             {$options.filter(t=>t.inPlay)[selection-1].text}
           </div>
         </div>
+        <button on:click={Back}>Go Back</button>
       </div>
     {/if}
   </section>
