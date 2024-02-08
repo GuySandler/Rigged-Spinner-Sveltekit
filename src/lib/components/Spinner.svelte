@@ -22,9 +22,9 @@
   let disabled = false;
 
   // new addition
-  let winairpods = 1; // number of airpods that can be won
+  let winairpods = 2; // number of airpods that can be won
   function ResetWinAirpods() {
-    winairpods = 1;
+    winairpods = 2;
   }
 
   let selectedIcon = iconsArray[getRandomInt(0,iconsArray.length-1)]
@@ -64,17 +64,22 @@
     final = false;
     adjust = false;
     completed = false;
+    console.log(winairpods);
   }
   function getRandomInt(min: number, max: number): number { 
 	let randint = 0;
     while (true) {
       randint = Math.floor(Math.random() * (max - min + 1)) + min;
-      if (randint == 1 && winairpods == 0) {continue}
+      if (randint == 1 && winairpods == 0) {console.log("respun");continue}
       else if (randint == 1 && winairpods != 0) {winairpods -= 1; break}
       else {break}
     }
     // let randint = Math.floor(Math.random() * (max - min + 1)) + min;
     return randint;   
+  }
+  let debugtools = false
+  function depleatWinAirpods() {
+    winairpods = 0;
   }
 </script>
 
@@ -164,8 +169,12 @@
   </section>
   <!--Result-->
   <section class="grid m-4">
-    <h1>{winairpods}</h1>
-    <button on:click={ResetWinAirpods}>Reset WinAirpods</button>
+    <input type="checkbox" bind:checked={debugtools}>
+    {#if debugtools}
+        <h1>{winairpods}</h1>
+        <button on:click={ResetWinAirpods}>Reset WinAirpods</button>
+        <button on:click={depleatWinAirpods}>depleate WinAirpods</button>
+    {/if}
     {#if final}
     <!--Result-->
       <div class="flex justify-center" in:slide={{delay: 400}} out:slide>

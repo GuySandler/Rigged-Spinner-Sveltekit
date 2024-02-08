@@ -36,7 +36,10 @@
         cursor: pointer;
     }
 </style>
-
+<center>
+<h1>Chance to win Airpods Pro!!!!</h1>
+<h1>all participants get fudge!</h1>
+</center>
 <div class="form-container">
     <div class="form-input">
         <label for="name">Name:</label>
