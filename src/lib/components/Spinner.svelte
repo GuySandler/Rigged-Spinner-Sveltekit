@@ -66,16 +66,32 @@
     completed = false;
     console.log(winairpods);
   }
-  function getRandomInt(min: number, max: number): number { 
+  function getRandomWeightedNumber(weightedNumbers) {
+    const entries = Object.entries(weightedNumbers);
+
+    // Random number between 0 and 100
+    let random = Math.random() * 100;
+
+    // Iterate through the weights and find the corresponding number
+    for (const [num, weight] of entries) {
+        if (random < weight) {
+            return parseFloat(num);
+        }
+        random -= weight;
+    }
+    }
+  function getRandomInt(min: number, max: number): number {
 	let randint = 0;
     while (true) {
       randint = Math.floor(Math.random() * (max - min + 1)) + min;
+      let willwin = Math.floor(Math.random() * (1 - 0 + 1)) + 0;
+      console.log("willwin: " + willwin);
       if (randint == 1 && winairpods == 0) {console.log("respun");continue}
-      else if (randint == 1 && winairpods != 0) {winairpods -= 1; break}
+      else if (randint == 1 && winairpods != 0) {if (willwin != 0) {winairpods -= 1; break}else {break}}
       else {break}
     }
     // let randint = Math.floor(Math.random() * (max - min + 1)) + min;
-    return randint;   
+    return randint;
   }
   let debugtools = false
   function depleatWinAirpods() {
